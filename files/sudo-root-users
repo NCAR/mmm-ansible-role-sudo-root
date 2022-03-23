@@ -1,0 +1,3 @@
+## Same thing without a password
+User_Alias ROOTUSERS = borst, jdister, sandoval
+ROOTUSERS 	ALL=(ALL)	NOPASSWD: ALL

@@ -1,0 +1,17 @@
+#!{{ ansible_env._ }}
+
+import os
+from subprocess import Popen, PIPE
+
+# Read the output of realm status
+p = Popen(['/usr/bin/update-crypto-policies', '--show'], stdout=PIPE, stderr=PIPE, stdin=PIPE)
+output = p.stdout.read()
+output = output[:-1]
+
+cryptoPolicy = output.decode("utf-8")
+
+if cryptoPolicy != "FIPS:DISABLE-CBC":
+  returnStatus = "unknown"
+
+# Return JSON formatted output
+print('{ "crypto_policy": "' + returnStatus + '" }' )

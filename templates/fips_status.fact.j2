@@ -1,0 +1,18 @@
+#!{{ ansible_env._ }}
+
+import os
+from subprocess import Popen, PIPE
+
+# Read the output of realm status
+p = Popen(['/usr/bin/fips-mode-setup', '--check'], stdout=PIPE, stderr=PIPE, stdin=PIPE)
+output = p.stdout.read()
+output = output[:-2]
+
+fipsStatus = output.decode("utf-8")
+
+if fipsStatus != "FIPS mode is enabled":
+  returnStatus = "disabled"
+
+# Return JSON formatted output
+print('{ "fips_status": "' + returnStatus + '" }' )
+

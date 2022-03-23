@@ -1,0 +1,19 @@
+---
+
+- name: sudo update for root users
+  copy:
+    src: root-users
+    dest: /etc/sudoers.d/
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Ensure includedir in /etc/sudoers is uncommented
+   become: yes
+   lineinfile:
+     path: /etc/sudoers
+     regexp: "includedir="
+     line: "#includedir /etc/sudoers.d"
+     state: present
+     backup: yes
+   check_mode: yes

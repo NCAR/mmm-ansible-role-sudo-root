@@ -1,0 +1,5 @@
+---
+
+galaxy_info:
+  role_name: mmm-ansible-role-sudo-root
+dependencies:
